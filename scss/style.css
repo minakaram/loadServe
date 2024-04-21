@@ -1,0 +1,386 @@
+:root {
+  --main-color: #6c5ce7;
+  --secondary-color: #a29bfe;
+  --lighter-color: #e0e0e7;
+  --light-color: #b0b0c0;
+  --dark-color: #52505e;
+  --font-smaller: 14px;
+  --font-bigger: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--dark-color);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 0.5em;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2em;
+}
+.container .form-box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5em;
+  margin-bottom: 5em;
+  border: 8px solid var(--lighter-color);
+  border-radius: 15px;
+  background-color: #faf9ff;
+}
+@media (min-width: 768px) {
+  .container .form-box {
+    flex-direction: row;
+  }
+}
+.container .form-box .progress {
+  position: relative;
+  padding: 1em;
+}
+@media (min-width: 768px) {
+  .container .form-box .progress {
+    flex: 1 0 35%;
+    min-width: 300px;
+    padding: 3em;
+  }
+}
+.container .form-box .progress .logo {
+  font-size: 1.75em;
+  font-weight: 800;
+  color: var(--dark-color);
+  padding: 40px 48px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .container .form-box .progress .logo {
+    margin: -48px -48px 48px;
+  }
+}
+.container .form-box .progress .logo span {
+  color: var(--main-color);
+}
+.container .form-box .progress ul {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2em;
+}
+@media (max-width: 767px) {
+  .container .form-box .progress ul {
+    margin-top: 3em;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 768px) {
+  .container .form-box .progress ul {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+.container .form-box .progress ul li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+@media (max-width: 375px) {
+  .container .form-box .progress ul li {
+    width: calc((100% - 2em) / 2) !important;
+  }
+}
+@media (max-width: 767px) {
+  .container .form-box .progress ul li {
+    width: calc((100% - 2em) / 4);
+  }
+}
+@media (min-width: 768px) {
+  .container .form-box .progress ul li:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 30px;
+    width: 2px;
+    height: 65px;
+    background-color: var(--lighter-color);
+  }
+}
+.container .form-box .progress ul li > span {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  font-size: var(--font-smaller);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1em;
+  border-radius: 50%;
+  background-color: var(--lighter-color);
+}
+.container .form-box .progress ul li.active > span {
+  color: white;
+  background-color: var(--main-color);
+  border: 4px solid var(--secondary-color);
+}
+.container .form-box .progress ul li p {
+  position: absolute;
+  top: -2em;
+  min-width: 100px;
+  font-size: 12px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .container .form-box .progress ul li p {
+    position: relative;
+    top: auto;
+    font-size: inherit;
+  }
+}
+.container .form-box form {
+  width: 100%;
+  padding: 3em 1em;
+  background-color: white;
+  border-radius: 30px 30px 15px 15px;
+}
+@media (min-width: 768px) {
+  .container .form-box form {
+    border-radius: 0px 15px 15px 0px;
+  }
+}
+.container .form-box form > div {
+  width: 400px;
+  margin: 0 auto;
+}
+@media (max-width: 767px) {
+  .container .form-box form > div {
+    width: auto;
+  }
+}
+.container .form-box form > div > div:not(.checkbox) {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+.container .form-box form > div .buyer-type,
+.container .form-box form > div .shippingTo {
+  display: inline-block !important;
+}
+.container .form-box form > div .buyer-type p,
+.container .form-box form > div .shippingTo p {
+  margin-bottom: 0em;
+}
+.container .form-box form > div .buyer-type label,
+.container .form-box form > div .shippingTo label {
+  margin-right: 3em;
+}
+.container .form-box form > div .buyer-type input,
+.container .form-box form > div .shippingTo input {
+  height: auto !important;
+  margin-right: 3px;
+}
+.container .form-box form > div .imageContainer img {
+  border-radius: 15px;
+}
+.container .form-box form input,
+.container .form-box form select {
+  height: 40px;
+  padding: 0 1em;
+  border-radius: 7px;
+  outline-color: var(--secondary-color);
+  border: 1px solid var(--lighter-color);
+  background-color: transparent;
+}
+.container .form-box form input[type=file] {
+  height: auto;
+  padding: 5px;
+}
+.container .form-box form label {
+  font-size: var(--font-smaller);
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+.container .form-box form > div:not(.btn-group) {
+  display: none;
+  animation: fadeIn 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.container .form-box form > div.active {
+  display: block;
+}
+.container .form-box form .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-top: 2em;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+}
+.container .form-box form .btn-group [class*=btn-] {
+  background-color: var(--main-color);
+  color: white;
+  padding: 1em 2.5em;
+  border: 4px solid var(--secondary-color);
+  border-radius: 30px;
+  transition: background-color 0.3s, border-color 0.3s ease-out;
+}
+.container .form-box form .btn-group [class*=btn-]:disabled {
+  background-color: var(--light-color);
+  border-color: var(--lighter-color);
+  cursor: text;
+}
+.container .form-box form .btn-group [class*=btn-]:hover:not(:disabled) {
+  background-color: var(--dark-color);
+  border-color: var(--light-color);
+}
+.container .form-box form .form-five {
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .container .form-box form .form-five {
+    font-size: 80%;
+  }
+}
+.container .form-box form .form-five .card-container {
+  border: 1px solid var(--secondary-color);
+  border-radius: 10px;
+  width: 100%;
+  margin: auto;
+}
+.container .form-box form .form-five .card-container h2 {
+  text-align: center;
+  padding: 1em;
+  color: var(--main-color);
+}
+.container .form-box form .form-five .card-container .card-box {
+  width: 95%;
+  margin: auto;
+  padding: 0.5em 1em;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.container .form-box form .form-five .card-container .card-box > div {
+  color: var(--dark-color);
+  font-weight: 800;
+  text-transform: capitalize;
+}
+.container .form-box form .form-five .card-container .card-box.img {
+  display: block !important;
+}
+.container .form-box form .form-five .card-container .card-box.img img {
+  border-radius: 15px;
+  width: 100%;
+  margin-top: 1rem;
+}
+.container .form-box form .form-five .card-container .card-box.product-uploaded-image img {
+  border-radius: 15px;
+  margin: 1rem 0rem;
+}
+.container .form-box form .form-six {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  gap: 1em;
+}
+.container .form-box form .form-six h1 {
+  color: var(--main-color);
+  text-align: center;
+}
+.container .form-box form .form-six p {
+  color: var(--secondary-color);
+  text-align: center;
+}
+
+::-moz-placeholder {
+  color: var(--light-color);
+}
+
+::placeholder {
+  color: var(--light-color);
+}
+
+.iti__tel-input {
+  width: 100%;
+}
+
+.passwordError {
+  color: red;
+  font-size: var(--font-smaller);
+}
+
+#country_selector {
+  width: 100%;
+}
+
+textarea {
+  padding: 1em;
+  border-radius: 7px;
+  outline-color: var(--secondary-color);
+  border: 1px solid var(--lighter-color);
+  background-color: transparent;
+}
+
+.error-message, .mailError, .customerPhoneError, .customerNameError {
+  font-size: var(--font-smaller);
+  color: red;
+}
+
+.btn-edit {
+  display: none;
+}/*# sourceMappingURL=style.css.map */

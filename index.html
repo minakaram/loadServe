@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./country-picker-flags/country-picker-flags/build/css/countrySelect.css">
+    <link rel="stylesheet" href="./intl-tel-input-master/intl-tel-input-master/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="scss/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="page" class="site">
+        <div class="container">
+            <div class="form-box">
+                <div class="progress">
+                    <div class="logo"><a href="/"><span>Car</span>Shop</a></div>
+                    <ul class="progress-steps">
+                        <li class="step active">
+                            <span>1</span>
+                            <p>Purchase status</p>
+                        </li>
+                        <li class="step">
+                            <span>2</span>
+                            <p>Purchase Details</p>
+                        </li>
+                        <li class="step">
+                            <span>3</span>
+                            <p>Buyer Info</p>
+                        </li>
+                        <li class="step">
+                            <span>4</span>
+                            <p>Shipping</p>
+                        </li>
+                        <li class="step">
+                            <span>5</span>
+                            <p>Order Preview</p>
+                        </li>
+                           <li class="step">
+                            <span>6</span>
+                            <p>Order Status</p>
+                        </li>
+                    </ul>
+                </div>
+                <form action="">
+                    <div class="form-one form-step active">
+                        <div class="bg-svg"></div>
+                        <h2>Purchase status</h2>
+                        <div class="buyer-type">
+                            <label>Buyer Type</label><br>
+                            <input type="radio" id="individual" name="buyerType" required>
+                            <label for="individual">Individual</label>
+                            <input type="radio" id="company" name="buyerType" required>
+                            <label for="company">Company</label>
+                        </div>
+                        <div class="car-creator">
+                            <label>Manufacturing company</label>
+                            <select name="ManufacturingCompany" id="" required>
+                                <option value="">-- Select --</option>
+                                <option value="BMW">BMW</option>
+                                <option value="Mercedes">Mercedes</option>
+                                <option value="Peugeot">Peugeot</option>
+                            </select>
+                        </div>
+                        <div class="car-creator">
+                            <label>Car Shape</label>
+                            <select name="carShape" id="" required>
+                                <option value="">-- Select --</option>
+                                <option value="Sedan">Sedan</option>
+                                <option value="Hatchback">Hatchback</option>
+                            </select>
+                        </div>
+                        <div class="car-creator">
+                            <label>Manufacturing Year</label>
+                            <select name="ManufacturingYear" id="" required>
+                                <option value="">-- Select --</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                            </select>
+                        </div>
+                        <div class="imageContainer">
+                            <img src="" alt="" id="carImage">
+                        </div>
+                    </div>
+                    <div class="form-two form-step">
+                        <div class="bg-svg"></div>
+                        <h2>Purchase Details</h2>
+                        <div class="pieceName">
+                            <label>Piece Name</label>
+                            <input name="pieceName" type="text" required>
+                        </div>
+                        <div class="piecesNumber">
+                            <label>Number of pieces</label>
+                            <input name="piecesNumber" type="number" required>
+                        </div>
+                        <div class="seriesNumber">
+                            <label>Series Number</label>
+                            <input name="seriesNumber" type="number">
+                        </div>
+                        <div class="chassisNumber">
+                            <label>Chassis Number</label>
+                            <input name="chassisNumber" type="number">
+                        </div>
+                        <div class="pieceDescription">
+                            <label>Piece description</label>
+                            <textarea name="pieceDescription" id="" cols="30" rows="10"
+                                placeholder="Please enter a description of the piece you want"></textarea>
+                        </div>
+                        <div class="imageUploader">
+                            <input name="imageUploader" type="file" id="fileInput" accept="image/*"
+                                onchange="handleImageUpload()">
+                            <div id="preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-three form-step">
+                        <div class="bg-svg"></div>
+                        <h2>Buyer Info</h2>
+                        <div class="customerName">
+                            <label for="">Customer Name</label>
+                            <input type="text" required>
+                            <p class="customerNameError"></p>
+                        </div>
+                        <div class="customerEmail">
+                            <label for="">Customer Email</label>
+                            <input type="email" required>
+                            <p class="mailError"></p>
+                        </div>
+                        <div class="customerPhone">
+                            <label for="">Customer Phone</label>
+                            <input type="tel" name="phone" required id="phone">
+                            <div class="customerPhoneError"></div>
+                        </div>
+                        <div class="password">
+                            <label for="">Password</label>
+                            <input type="password" required>
+                            <p class="passwordError"></p>
+                        </div>
+                        <div class="password">
+                            <label for="">Retype Password</label>
+                            <input type="password" required>
+                            <p class="passwordError"></p>
+                        </div>
+                    </div>
+                    <div class="form-four form-step">
+                        <div class="bg-svg"></div>
+                        <h2>Shipping</h2>
+                        <div class="shippingTo">
+                            <label>Ship the order to</label><br>
+                            <input type="radio" id="myself" name="shipTo">
+                            <label for="myself">Myself</label>
+                            <input type="radio" id="friend" name="shipTo">
+                            <label for="friend">Friend</label>
+                            <p class="error-message"></p>
+                        </div>
+                        <div class="arabicName">
+                            <label>Enter your name in arabic</label>
+                            <input type="text" required>
+                            <p class="error-message"></p>
+                        </div>
+                        <div class="englishName">
+                            <label>Enter your name in english</label>
+                            <input type="text" required>
+                            <p class="error-message"></p>
+                        </div>
+                        <div class="countryName">
+                            <label>Select your country</label>
+                            <input id="country_selector" type="text" required>
+                            <p class="error-message"></p>
+                        </div>
+                        <div class="cityName">
+                            <label>Enter your city name</label>
+                            <input type="text" required>
+                            <p class="error-message"></p>
+                        </div>
+                        <div class="streetName">
+                            <label>Enter your street name</label>
+                            <input type="text" required>
+                            <p class="error-message"></p>
+                        </div>
+                        <div class="zipCode">
+                            <label>Enter your zip code</label>
+                            <input type="number" required>
+                            <p class="error-message"></p>
+                        </div>
+                        <div class="detailedAddress">
+                            <label>Enter your address in detailed</label>
+                            <textarea name="" id="" cols="30" rows="10" required></textarea>
+                            <p class="error-message"></p>
+                        </div>
+                        <div class="deliveryPhone">
+                            <label>Customer Phone</label>
+                            <input type="tel" name="phone" required id="phoneDelivery">
+                            <p class="error-message"></p>
+                        </div>
+                    </div>
+                    <div class="form-five form-step">
+                        <div class="bg-svg"></div>
+                        <div class="card-container">
+                            <h2>Order Details</h2>
+                            <div class="card-box">
+                                <p>Customer Type :</p>
+                                <div class="showBuyerType"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Manufacturing Company :</p>
+                                <div class="showManufacturer"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Car shape :</p>
+                                <div class="showCarShape"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Production year :</p>
+                                <div class="showProductionYear"></div>
+                            </div>
+                            <div class="card-box img">
+                                <p>Product image :</p>
+                                <div class="">
+                                    <img class="showProductImage" src="" alt="photo">
+                                </div>
+                            </div>
+                            <div class="card-box">
+                                <p>Product Name :</p>
+                                <div class="showProductName"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Pieces Number :</p>
+                                <div class="showPiecesNumber"></div>
+                            </div>
+                            <div class="card-box">
+                                <p class="seriesChassisHead"></p>
+                                <div class="showSeriesChassis"></div>
+                            </div>
+                            <div class="card-box product-description">
+                                <p>Product Description :</p>
+                                <div class="showProductDescription"></div>
+                            </div>
+                            <div class="card-box product-uploaded-image">
+                                <p>Piece image :</p>
+                                <div>
+                                    <img class="showProductUploadedImage" src="" alt="">
+                                </div>
+                            </div>
+                            <div class="card-box">
+                                <p>Customer name :</p>
+                                <div class="showCustomerName"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Customer email :</p>
+                                <div class="showCustomerEmail"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Customer phone number :</p>
+                                <div class="showCustomerPhone"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Shipping to :</p>
+                                <div class="showShippingTo"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Name in arabic :</p>
+                                <div class="showArabicName"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Name in english :</p>
+                                <div class="showEnglishName"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Customer country :</p>
+                                <div class="showCustomerCountry"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Customer city :</p>
+                                <div class="showCustomerCity"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Customer street :</p>
+                                <div class="showCustomerStreet"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Customer zip code :</p>
+                                <div class="showCustomerZipCode"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Detailed address :</p>
+                                <div class="showDetailedAddress"></div>
+                            </div>
+                            <div class="card-box">
+                                <p>Customer phone :</p>
+                                <div class="showCustomerDeliveryNumber"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-six form-step submit">
+                        <h1>Your order has been placed</h1>
+                        <p>Thank you!</p>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn-prev" disabled>Back</button>
+                        <button type="button" class="btn-next">Next Step</button>
+                        <button type="button" class="btn-edit">Edit</button>
+                        <button type="button" class="btn-submit" disabled>Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="./intl-tel-input-master/intl-tel-input-master/build/js/intlTelInput.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="./country-picker-flags/country-picker-flags/build/js/countrySelect.js"></script>
+    <script>
+        var userPhone = document.querySelector("#phone");
+        var userPhoneDelivery = document.querySelector("#phoneDelivery");
+        window.intlTelInputGlobals.loadUtils("./intl-tel-input-master/intl-tel-input-master/build/js/utils.js");
+        window.intlTelInput(userPhone, ({
+            allowDropdown: true,
+            countrySearch: true,
+            initialCountry: "eg",
+            placeholderNumberType: "MOBILE",
+            dropdownContainer: document.body
+        }));
+        window.intlTelInput(userPhoneDelivery, ({
+            allowDropdown: true,
+            countrySearch: true,
+            initialCountry: "eg",
+            placeholderNumberType: "MOBILE",
+            dropdownContainer: document.body
+        }));
+        $("#country_selector").countrySelect({
+            defaultCountry: "eg",
+            defaultStyling: "inside",
+            responsiveDropdown: true,
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
