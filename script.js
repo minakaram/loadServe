@@ -150,6 +150,7 @@ const steps = document.querySelectorAll(".step");
 const form_steps = document.querySelectorAll(".form-step");
 const submit = document.querySelector(".btn-submit");
 const edit = document.querySelector(".btn-edit");
+const save = document.querySelector(".btn-save");
 let active = 1;
 let buyerType = null;
 let manufacturingCompany = null;
@@ -199,38 +200,37 @@ form_steps.forEach((form, index) => {
   });
 });
 
-
 const updateProgress = () => {
-    steps.forEach((step, i) => {
-      if (i === active - 1) {
-        step.classList.add("active");
-        form_steps[i].classList.add("active");
-      } else {
-        step.classList.remove("active");
-        form_steps[i].classList.remove("active");
-      }
-    });
-  
-    let isFormValid;
-  
-    if (active === 1) {
-      isFormValid = validateFormOne();
-    } else if (active === 2) {
-      isFormValid = validateFormTwo(buyerType);
-    } else if (active === 3) {
-      isFormValid = validateFormThree();
-    } else if (active === 4) {
-      isFormValid = validateFormFour();
-    } else if (active === 5) {
-      isFormValid = validateFormFive(buyerType);
-    } else if (active === 6) {
-      // No need to validate Form Six here
-      isFormValid = true; // Assuming Form Six is always valid
+  steps.forEach((step, i) => {
+    if (i === active - 1) {
+      step.classList.add("active");
+      form_steps[i].classList.add("active");
+    } else {
+      step.classList.remove("active");
+      form_steps[i].classList.remove("active");
     }
-    nextButton.disabled = !isFormValid;
-  
-    previousButton.disabled = active === 1;
-  };
+  });
+
+  let isFormValid;
+
+  if (active === 1) {
+    isFormValid = validateFormOne();
+  } else if (active === 2) {
+    isFormValid = validateFormTwo(buyerType);
+  } else if (active === 3) {
+    isFormValid = validateFormThree();
+  } else if (active === 4) {
+    isFormValid = validateFormFour();
+  } else if (active === 5) {
+    isFormValid = validateFormFive(buyerType);
+  } else if (active === 6) {
+    // No need to validate Form Six here
+    isFormValid = true; // Assuming Form Six is always valid
+  }
+  nextButton.disabled = !isFormValid;
+
+  previousButton.disabled = active === 1;
+};
 
 const updateProductImage = () => {
   if (manufacturingCompany && carShape && manufacturingYear && buyerType) {
@@ -374,72 +374,99 @@ const validateFormThree = () => {
   const passwordErrors = form.querySelectorAll(".passwordError");
   const customerNameError = form.querySelector(".customerNameError");
   const customerPhoneError = form.querySelector(".customerPhoneError");
-  // Reset error messages
-  // Reset error messages
-  if (mailError) {
-    mailError.textContent = "";
-  }
-  if (passwordErrors.length > 0) {
-    passwordErrors.forEach((error) => (error.textContent = ""));
-  }
-  if (customerNameError) {
-    customerNameError.textContent = "";
-  }
 
-  if (!customerNameInput.value.trim()) {
-    customerNameError.textContent = "Please enter your name.";
-    return false;
-  } else {
-    customerName = customerNameInput.value;
-  }
+  // Function to validate customer name
+  const validateCustomerName = () => {
+    if (!customerNameInput.value.trim()) {
+      customerNameError.textContent = "Please enter your name.";
+      return false;
+    } else {
+      customerNameError.textContent = "";
+      customerName = customerNameInput.value;
+      return true;
+    }
+  };
 
-  if (!customerEmailInput.value.trim()) {
-    mailError.textContent = "Please enter your email.";
-    return false;
-  }
+  // Function to validate customer email
+  const validateCustomerEmail = () => {
+    if (!customerEmailInput.value.trim()) {
+      mailError.textContent = "Please enter your email.";
+      return false;
+    }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(customerEmailInput.value.trim())) {
-    mailError.textContent = "Please enter a valid email address.";
-    return false;
-  } else {
-    customerEmail = customerEmailInput.value;
-  }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(customerEmailInput.value.trim())) {
+      mailError.textContent = "Please enter a valid email address.";
+      return false;
+    } else {
+      mailError.textContent = "";
+      customerEmail = customerEmailInput.value;
+      return true;
+    }
+  };
 
-  if (!customerPhoneInput.value.trim()) {
-    return false;
-  } else {
-    customerPhone = customerPhoneInput.value;
-  }
+  // Function to validate customer phone number
+  const validateCustomerPhone = () => {
+    if (!customerPhoneInput.value.trim()) {
+      customerPhoneError.textContent = "Please enter a valid phone number.";
+      return false;
+    } else {
+      customerPhoneError.textContent = "";
+      customerPhone = customerPhoneInput.value;
+      return true;
+    }
+  };
 
-  if (!customerPhoneInput.value.trim()) {
-    customerPhoneError.textContent = "Please enter a valid phone number.";
-    return false;
-  }
+  // Function to validate password
+  const validatePassword = () => {
+    if (!passwordInput.value.trim()) {
+      passwordErrors[0].textContent = "Please enter a password.";
+      return false;
+    } else {
+      passwordErrors[0].textContent = "";
+    }
 
-  if (!passwordInput.value.trim()) {
-    passwordErrors[0].textContent = "Please enter a password.";
-    return false;
-  }
+    if (!retypePasswordInput.value.trim()) {
+      passwordErrors[1].textContent = "Please retype your password.";
+      return false;
+    }
 
-  if (!retypePasswordInput.value.trim()) {
-    passwordErrors[1].textContent = "Please retype your password.";
-    return false;
-  }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordRegex.test(passwordInput.value.trim())) {
+      passwordErrors[0].textContent =
+        "Password must be at least 8 characters and contain both numbers and letters.";
+      return false;
+    }
 
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  if (!passwordRegex.test(passwordInput.value.trim())) {
-    passwordErrors[0].textContent =
-      "Password must be at least 8 characters and contain both numbers and letters.";
-    return false;
-  }
+    if (passwordInput.value !== retypePasswordInput.value) {
+      passwordErrors[1].textContent = "Passwords do not match.";
+      return false;
+    }
 
-  if (passwordInput.value !== retypePasswordInput.value) {
-    passwordErrors[1].textContent = "Passwords do not match.";
-    return false;
-  }
+    passwordErrors[0].textContent = "";
+    passwordErrors[1].textContent = "";
+    return true;
+  };
 
-  return true;
+  // Event listeners for real-time validation
+  customerNameInput.addEventListener("input", validateCustomerName);
+  customerNameInput.addEventListener("change", validateCustomerName);
+  customerEmailInput.addEventListener("input", validateCustomerEmail);
+  customerEmailInput.addEventListener("change", validateCustomerEmail);
+  customerPhoneInput.addEventListener("input", validateCustomerPhone);
+  customerPhoneInput.addEventListener("change", validateCustomerPhone);
+  passwordInput.addEventListener("input", validatePassword);
+  passwordInput.addEventListener("change", validatePassword);
+  retypePasswordInput.addEventListener("input", validatePassword);
+  retypePasswordInput.addEventListener("change", validatePassword);
+
+  // Return overall form validity
+  return (
+    validateCustomerName() &&
+    validateCustomerEmail() &&
+    validateCustomerPhone() &&
+    validatePassword()
+  );
 };
 
 const validateFormFour = () => {
@@ -468,7 +495,7 @@ const validateFormFour = () => {
   const deliveryPhoneError = form.querySelector(
     ".deliveryPhone .error-message"
   );
-  const shippingToError = form.querySelector(".shippingTo .error-message"); // New line
+  const shippingToError = form.querySelector(".shippingTo .error-message");
 
   // Reset error messages
   arabicNameError.textContent = "";
@@ -479,89 +506,151 @@ const validateFormFour = () => {
   zipCodeError.textContent = "";
   detailedAddressError.textContent = "";
   deliveryPhoneError.textContent = "";
-  shippingToError.textContent = ""; // New line
+  shippingToError.textContent = "";
 
-  let isValid = true; // Initially set to true
+  // Function to validate Arabic Name
+  const validateArabicName = () => {
+    const arabicNameVal = arabicNameInput.value.trim();
+    const arabicRegex = /^[\u0621-\u064A\s]+$/; // Arabic Unicode range
 
-  // Validate Shipping To
-  const shippingToInput = form.querySelector("input[name='shipTo']:checked");
-  if (!shippingToInput) {
-    shippingToError.textContent = "Please select a shipping destination.";
-    isValid = false;
-  } else {
-    shippingTo = shippingToInput.id;
-  }
+    if (!arabicNameVal) {
+      arabicNameError.textContent = "Please enter your name in Arabic.";
+      return false;
+    } else if (!arabicRegex.test(arabicNameVal)) {
+      arabicNameError.textContent = "Please enter a valid Arabic name.";
+      return false;
+    } else {
+      arabicNameError.textContent = "";
+      arabicName = arabicNameInput.value; // Update input value (optional)
+      return true;
+    }
+  };
 
-  // Validate Arabic Name
-  if (!arabicNameInput.value.trim()) {
-    arabicNameError.textContent = "Please enter your name in Arabic.";
-    isValid = false;
-  } else {
-    arabicName = arabicNameInput.value;
-  }
+  // Function to validate English Name
+  const validateEnglishName = () => {
+    if (!englishNameInput.value.trim()) {
+      englishNameError.textContent = "Please enter your name in English.";
+      return false;
+    } else {
+      englishNameError.textContent = "";
+      englishName = englishNameInput.value;
+      return true;
+    }
+  };
 
-  // Validate English Name
-  if (!englishNameInput.value.trim()) {
-    englishNameError.textContent = "Please enter your name in English.";
-    isValid = false;
-  } else {
-    englishName = englishNameInput.value;
-  }
+  // Function to validate Country Name
+  const validateCountryName = () => {
+    if (!countryNameInput.value.trim()) {
+      countryNameError.textContent = "Please select your country.";
+      return false;
+    } else {
+      countryNameError.textContent = "";
+      countryName = countryNameInput.value;
+      return true;
+    }
+  };
 
-  // Validate Country Name
-  if (!countryNameInput.value.trim()) {
-    countryNameError.textContent = "Please select your country.";
-    isValid = false;
-  } else {
-    countryName = countryNameInput.value;
-  }
+  // Function to validate City Name
+  const validateCityName = () => {
+    if (!cityNameInput.value.trim()) {
+      cityNameError.textContent = "Please enter your city name.";
+      return false;
+    } else {
+      cityNameError.textContent = "";
+      cityName = cityNameInput.value;
+      return true;
+    }
+  };
 
-  // Validate City Name
-  if (!cityNameInput.value.trim()) {
-    cityNameError.textContent = "Please enter your city name.";
-    isValid = false;
-  } else {
-    cityName = cityNameInput.value;
-  }
+  // Function to validate Street Name
+  const validateStreetName = () => {
+    if (!streetNameInput.value.trim()) {
+      streetNameError.textContent = "Please enter your street name.";
+      return false;
+    } else {
+      streetNameError.textContent = "";
+      streetName = streetNameInput.value;
+      return true;
+    }
+  };
 
-  // Validate Street Name
-  if (!streetNameInput.value.trim()) {
-    streetNameError.textContent = "Please enter your street name.";
-    isValid = false;
-  } else {
-    streetName = streetNameInput.value;
-  }
+  // Function to validate Zip Code
+  const validateZipCode = () => {
+    if (!zipCodeInput.value.trim()) {
+      zipCodeError.textContent = "Please enter your zip code.";
+      return false;
+    } else {
+      zipCodeError.textContent = "";
+      zipCode = zipCodeInput.value;
+      return true;
+    }
+  };
 
-  // Validate Zip Code
-  if (!zipCodeInput.value.trim()) {
-    zipCodeError.textContent = "Please enter your zip code.";
-    isValid = false;
-  } else {
-    zipCode = zipCodeInput.value;
-  }
+  // Function to validate Detailed Address
+  const validateDetailedAddress = () => {
+    if (!detailedAddressTextarea.value.trim()) {
+      detailedAddressError.textContent = "Please enter your detailed address.";
+      return false;
+    } else {
+      detailedAddressError.textContent = "";
+      detailedAddress = detailedAddressTextarea.value;
+      return true;
+    }
+  };
 
-  // Validate Detailed Address
-  if (!detailedAddressTextarea.value.trim()) {
-    detailedAddressError.textContent = "Please enter your detailed address.";
-    isValid = false;
-  } else {
-    detailedAddress = detailedAddressTextarea.value;
-  }
+  // Function to validate Delivery Phone
+  const validateDeliveryPhone = () => {
+    if (!deliveryPhoneInput.value.trim()) {
+      deliveryPhoneError.textContent = "Please enter your phone number.";
+      return false;
+    } else {
+      deliveryPhoneError.textContent = "";
+      deliveryPhone = deliveryPhoneInput.value;
+      return true;
+    }
+  };
 
-  // Validate Delivery Phone
-  if (!deliveryPhoneInput.value.trim()) {
-    deliveryPhoneError.textContent = "Please enter your phone number.";
-    isValid = false;
-  } else {
-    deliveryPhone = deliveryPhoneInput.value;
-  }
+  // Function to validate Shipping To
+  const validateShippingTo = () => {
+    const shippingToInput = form.querySelector("input[name='shipTo']:checked");
+    if (!shippingToInput) {
+      shippingToError.textContent = "Please select a shipping destination.";
+      return false;
+    } else {
+      shippingToError.textContent = "";
+      shippingTo = shippingToInput.id;
+      return true;
+    }
+  };
+  arabicNameInput.addEventListener("input", validateArabicName);
+  englishNameInput.addEventListener("input", validateEnglishName);
+  countryNameInput.addEventListener("input", validateCountryName);
+  cityNameInput.addEventListener("input", validateCityName);
+  streetNameInput.addEventListener("input", validateStreetName);
+  zipCodeInput.addEventListener("input", validateZipCode);
+  detailedAddressTextarea.addEventListener("input", validateDetailedAddress);
+  deliveryPhoneInput.addEventListener("input", validateDeliveryPhone);
 
-  return isValid;
+  // Run validations and return result
+  return (
+    validateArabicName() &&
+    validateEnglishName() &&
+    validateCountryName() &&
+    validateCityName() &&
+    validateStreetName() &&
+    validateZipCode() &&
+    validateDetailedAddress() &&
+    validateDeliveryPhone() &&
+    validateShippingTo()
+  );
 };
+
 const validateFormFive = (buyerType) => {
   nextButton.style.display = "none";
   previousButton.style.display = "none";
   edit.style.display = "block";
+  submit.style.display = "block";
+  save.style.display = "block";
   submit.disabled = false;
   document.querySelector(".showBuyerType").innerHTML = buyerType;
   document.querySelector(".showManufacturer").innerHTML = manufacturingCompany;
@@ -613,7 +702,8 @@ const editForm = () => {
   nextButton.style.display = "block";
   previousButton.style.display = "block";
   edit.style.display = "none";
-  submit.disabled = true;
+  submit.style.display = "none";
+  save.style.display = "none";
   // Activate Form One
   steps.forEach((step) => step.classList.remove("active"));
   form_steps.forEach((form) => form.classList.remove("active"));
@@ -630,20 +720,39 @@ edit.addEventListener("click", editForm);
 edit.addEventListener("click", editForm);
 
 const validateFormSix = () => {
-    active = 6; // Update the active variable to 6
-    nextButton.style.display = "none";
-    previousButton.style.display = "none";
-    edit.style.display = "none";
-    submit.style.display = "none";
-    form_steps.forEach(form => form.classList.remove("active")); // Remove active class from all form steps
-    form_steps[5].classList.add("active"); // Add active class to Form Six
-    steps.forEach((step, i) => { // Make sure the corresponding step number is also active
-      if (i === active - 1) {
-        step.classList.add("active");
-      } else {
-        step.classList.remove("active");
-      }
-    });
+  active = 6; // Update the active variable to 6
+  nextButton.style.display = "none";
+  previousButton.style.display = "none";
+  edit.style.display = "none";
+  submit.style.display = "none";
+  save.style.display = "none";
+  form_steps.forEach((form) => form.classList.remove("active")); // Remove active class from all form steps
+  form_steps[5].classList.add("active"); // Add active class to Form Six
+  steps.forEach((step, i) => {
+    // Make sure the corresponding step number is also active
+    if (i === active - 1) {
+      step.classList.add("active");
+    } else {
+      step.classList.remove("active");
+    }
+  });
 };
 
 submit.addEventListener("click", validateFormSix);
+
+
+save.addEventListener("click", () => {
+  // Select the div element to be saved as an image
+  const cardContainer = document.querySelector(".card-container");
+
+  // Use html2canvas to capture the div as an image
+  html2canvas(cardContainer).then((canvas) => {
+    // Create a temporary link element
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL(); // Set the image data as the href
+    link.download = "card_image.png"; // Set the file name for download
+
+    // Programmatically trigger a click event on the link to start the download
+    link.click();
+  });
+});

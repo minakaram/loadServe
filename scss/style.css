@@ -329,7 +329,7 @@ img {
   border-radius: 15px;
   margin: 1rem 0rem;
 }
-.container .form-box form .form-six {
+.container .form-box form .form-six.active {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -338,11 +338,11 @@ img {
   flex-direction: column;
   gap: 1em;
 }
-.container .form-box form .form-six h1 {
+.container .form-box form .form-six.active h1 {
   color: var(--main-color);
   text-align: center;
 }
-.container .form-box form .form-six p {
+.container .form-box form .form-six.active p {
   color: var(--secondary-color);
   text-align: center;
 }
@@ -382,5 +382,13 @@ textarea {
 }
 
 .btn-edit {
+  display: none;
+}
+
+.btn-submit {
+  display: none;
+}
+
+.btn-save {
   display: none;
 }/*# sourceMappingURL=style.css.map */
